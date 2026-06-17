@@ -10,7 +10,12 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
     "mongoose": "^9.7.0"
   },
   "devDependencies": {
