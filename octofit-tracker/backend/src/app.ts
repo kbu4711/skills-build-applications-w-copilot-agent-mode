@@ -1,4 +1,5 @@
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import { apiRouter } from './routes/api';
 
 const app = express();
@@ -6,6 +7,15 @@ const codespaceName = process.env.CODESPACE_NAME;
 const baseUrl = codespaceName ? `https://${codespaceName}-8000.app.github.dev` : 'http://localhost:8000';
 
 app.use(express.json());
+app.use(
+  '/api',
+  rateLimit({
+    windowMs: 60 * 1000,
+    limit: 120,
+    standardHeaders: true,
+    legacyHeaders: false
+  })
+);
 app.use('/api', apiRouter);
 
 app.get('/', (_req, res) => {
