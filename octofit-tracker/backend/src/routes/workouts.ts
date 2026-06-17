@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import mongoose from 'mongoose';
 import { Workout } from '../models/Workout';
 
 const router = Router();
@@ -34,6 +35,9 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.put('/:id', async (req: Request, res: Response) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ error: 'Invalid workout ID' });
+    }
     const workout = await Workout.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!workout) return res.status(404).json({ error: 'Workout not found' });
     res.json(workout);

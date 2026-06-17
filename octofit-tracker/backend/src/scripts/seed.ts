@@ -154,18 +154,18 @@ async function seedDatabase(): Promise<void> {
   // Seed leaderboard
   const leaderboard = await Leaderboard.insertMany([
     {
-      user: users[0]._id,
-      score: 740,
-      rank: 1,
-      total_activities: 2,
-      total_calories_burned: 740,
-    },
-    {
       user: users[2]._id,
       score: 750,
-      rank: 2,
+      rank: 1,
       total_activities: 2,
       total_calories_burned: 750,
+    },
+    {
+      user: users[0]._id,
+      score: 740,
+      rank: 2,
+      total_activities: 2,
+      total_calories_burned: 740,
     },
     {
       user: users[1]._id,

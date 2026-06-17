@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import mongoose from 'mongoose';
 import { Leaderboard } from '../models/Leaderboard';
 
 const router = Router();
@@ -34,6 +35,9 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.put('/:id', async (req: Request, res: Response) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ error: 'Invalid leaderboard entry ID' });
+    }
     const entry = await Leaderboard.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!entry) return res.status(404).json({ error: 'Leaderboard entry not found' });
     res.json(entry);
